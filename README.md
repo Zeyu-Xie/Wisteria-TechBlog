@@ -1,2 +1,2 @@
-# Wisteria-Blog
-My Blog
+# Wisteria-TechBlog
+My tech blog.
