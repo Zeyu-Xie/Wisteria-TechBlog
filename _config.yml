@@ -1,0 +1,29 @@
+
+# Build settings
+remote_theme: zeyu-xie/Lavender-Scholar-Lite
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-remote-theme
+
+# Basic Site Info
+
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://zeyu-xie.github.io/Wisteria-TechBlog" # the base hostname & protocol for your site, e.g. http://example.com
+
+title: Wisteria TechBlog
+author: 
+    name: Acan
+    email: xie.zeyu20@gmail.com
+    github: https://github.com/zeyu-xie
+description: >
+    Welcome to Wisteria TechBlog!  
+lang: en
+copyright: >
+    ©️ 2023 Acan. All rights reserved.
+
+# Theme-Specific Settings
+
+date_format: "%b %-d, %Y"
+
+show_excerpts: true
