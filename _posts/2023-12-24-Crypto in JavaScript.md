@@ -128,3 +128,90 @@ uint8array_to_cryptokey(password_uint8array).then(password_cryptokey => {
 
 ```
 
+### 非对称加密 RES
+
+```
+const encoder = new TextEncoder()
+const decoder = new TextDecoder()
+
+// 明文
+
+const data = "Hello World! "
+const data_uint8array = encoder.encode(data)
+
+// 将 ArrayBuffer 转换为 Base64 字符串（函数）
+
+const arrayBufferToBase64 = buffer => {
+    const bytes = new Uint8Array(buffer);
+    const array = Array.from(bytes)
+    const string = String.fromCharCode.apply(null, array)
+    return btoa(string);
+}
+
+// 生成 CryptoKeyPair 密钥对
+
+const getKeyPair = async () => {
+    try {
+        return await crypto.subtle.generateKey(
+            { name: "RSA-OAEP", modulusLength: 2048, publicExponent: new Uint8Array([0x01, 0x00, 0x01]), hash: { name: "SHA-256" } },
+            true,
+            ["encrypt", "decrypt"]
+        )
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+// 导出 base64 格式的公钥和私钥
+
+getKeyPair().then(async keyPair => {
+    const publicKey_arraybuffer = await crypto.subtle.exportKey("spki", keyPair.publicKey)
+    const privateKey_arraybuffer = await crypto.subtle.exportKey("pkcs8", keyPair.privateKey)
+
+    const publicKey_base64 = arrayBufferToBase64(publicKey_arraybuffer)
+    const privateKey_base64 = arrayBufferToBase64(privateKey_arraybuffer)
+
+    console.log("Public Key")
+    console.log(publicKey_base64)
+    console.log("")
+
+    console.log("Private Key")
+    console.log(privateKey_base64)
+    console.log("")
+
+    return keyPair
+}).then(async keyPair => {
+
+    // 加密
+
+    const encryptedData = await crypto.subtle.encrypt(
+        {
+            name: 'RSA-OAEP',
+        },
+        keyPair.publicKey,
+        new TextEncoder().encode(data)
+    )
+
+    console.log("Encrypted Data")
+    console.log(arrayBufferToBase64(encryptedData))
+    console.log("")
+
+    // 解密
+
+    const decryptedData = await crypto.subtle.decrypt(
+        {
+            name: 'RSA-OAEP',
+        },
+        keyPair.privateKey,
+        encryptedData
+    )
+
+    console.log("Decrypted Data")
+    console.log(decoder.decode(new Uint8Array(decryptedData)))
+    console.log("")
+
+}).catch(err => {
+    console.error(err)
+})
+```
+
