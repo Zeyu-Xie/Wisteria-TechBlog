@@ -19,8 +19,10 @@ author:
 description: >
     Welcome to Wisteria TechBlog!  
 lang: en
-copyright: >
-    ©️ 2023 Acan. All rights reserved.
+copyright: 
+    label: ©️
+    identity: Acan
+    content: All rights reserved.
 
 # Theme-Specific Settings
 
