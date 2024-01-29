@@ -9,7 +9,7 @@ plugins:
 # Basic Site Info
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://zeyu-xie.github.io/Wisteria-TechBlog" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://zeyu-xie.github.io/Wisteria-TechBlog/" # the base hostname & protocol for your site, e.g. http://example.com
 
 title: Wisteria TechBlog
 author: 
